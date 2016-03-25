@@ -31,7 +31,15 @@ public class WordSearchController {
     @GET
     @Produces("text/plain")
     @Path("/wordsearch/{word}")
-    public String getClichedMessage(@PathParam("word") String word) throws IOException {
+    public String countWords(@PathParam("word") String word) throws IOException {
         return fileProcessor.countWordOccurrences(fileProvider.getFileList(fileLocation), word).toString();
     }
+
+    @GET
+    @Produces("text/plain")
+    @Path("/wordsearch/stream/{word}")
+    public String countWordsStream(@PathParam("word") String word) throws IOException {
+        return fileProcessor.countWordOccurrencesStreamWay(fileProvider.getFileList(fileLocation), word).toString();
+    }
+
 }

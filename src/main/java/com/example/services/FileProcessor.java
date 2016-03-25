@@ -11,5 +11,5 @@ public interface FileProcessor {
 
     Long countWordOccurrences(List<File> fileList, String target) throws IOException;
 
-    Long countWordOccurencesStreamWay(List<File> fileList, String targetWord);
+    Long countWordOccurrencesStreamWay(List<File> fileList, String targetWord);
 }

@@ -35,11 +35,17 @@ public class FileProcessorImpl implements FileProcessor{
     }
 
     @Override
-    public Long countWordOccurencesStreamWay(List<File> fileList, String targetWord) {
-        return null;
+    public Long countWordOccurrencesStreamWay(List<File> fileList, String targetWord) {
+        return fileList.parallelStream().mapToLong(f -> processFileStream(f, targetWord)).sum();
     }
 
-    public Long processFile(File file){
-        return 0L;
+    public long processFileStream(File file, String targetWord)  {
+        long count = 0;
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+            count += br.lines().map(s -> s.split(" ")).filter(w -> targetWord.equals(w)).count();
+        }catch (IOException ex){
+            return count;
+        }
+        return count;
     }
 }
