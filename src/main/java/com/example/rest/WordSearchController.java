@@ -1,5 +1,8 @@
 package com.example.rest;
+import com.example.dao.FileProvider;
+import com.example.services.FileProcessor;
 import com.sun.net.httpserver.HttpServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,11 +19,16 @@ import javax.ws.rs.Path;
 @Component
 public class WordSearchController {
 
+    @Autowired
+    private FileProcessor fileProcessor;
+
+    @Autowired
+    private FileProvider fileProvider;
+
     @GET
     @Produces("text/plain")
     @Path("/wordsearch")
     public String getClichedMessage() {
-        // Return some cliched textual content
-        return "Hello World";
+        return fileProcessor.countWordOccurrences(fileProvider.getFileList()).toString();
     }
 }
