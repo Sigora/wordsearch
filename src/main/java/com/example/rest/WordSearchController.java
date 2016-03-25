@@ -1,15 +1,15 @@
 package com.example.rest;
 import com.example.dao.FileProvider;
 import com.example.services.FileProcessor;
-import com.sun.net.httpserver.HttpServer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import java.io.IOException;
 
 /**
  * Created by Sigora on 25.03.2016.
@@ -25,10 +25,13 @@ public class WordSearchController {
     @Autowired
     private FileProvider fileProvider;
 
+    @Value("${file.location}")
+    private String fileLocation;
+
     @GET
     @Produces("text/plain")
-    @Path("/wordsearch")
-    public String getClichedMessage() {
-        return fileProcessor.countWordOccurrences(fileProvider.getFileList()).toString();
+    @Path("/wordsearch/{word}")
+    public String getClichedMessage(@PathParam("word") String word) throws IOException {
+        return fileProcessor.countWordOccurrences(fileProvider.getFileList(fileLocation), word).toString();
     }
 }

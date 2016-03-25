@@ -21,6 +21,8 @@
     <bytecodeTargetLevel>
       <module name="wordsearch3_main" target="1.8" />
       <module name="wordsearch3_test" target="1.8" />
+      <module name="wordsearch_main" target="1.7" />
+      <module name="wordsearch_test" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

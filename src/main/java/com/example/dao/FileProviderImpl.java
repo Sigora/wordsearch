@@ -1,13 +1,11 @@
 package com.example.dao;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -17,8 +15,9 @@ import java.util.List;
 public class FileProviderImpl implements FileProvider{
 
     @Override
-    public List<File> getFileList() {
-        File parent = new File("/");
+    public List<File> getFileList(String fileLocation) throws FileNotFoundException {
+        String fullPath = getClass().getClassLoader().getResource(fileLocation).getPath();
+        File parent = new File(fullPath);
         return parent != null ?  Arrays.asList(parent.listFiles()) : new ArrayList<File>();
     }
 }

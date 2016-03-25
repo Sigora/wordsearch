@@ -1,6 +1,7 @@
 package com.example.services;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -8,5 +9,7 @@ import java.util.List;
  */
 public interface FileProcessor {
 
-    Long countWordOccurrences(List<File> fileList);
+    Long countWordOccurrences(List<File> fileList, String target) throws IOException;
+
+    Long countWordOccurencesStreamWay(List<File> fileList, String targetWord);
 }
