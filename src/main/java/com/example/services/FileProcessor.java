@@ -9,7 +9,9 @@ import java.util.List;
  */
 public interface FileProcessor {
 
+    String DEFAULT_FILE_PROCESSOR = "defaultFileProcessor";
+    String STREAM_FILE_PROCESSOR = "streamFileProcessor";
+
     Long countWordOccurrences(List<File> fileList, String target) throws IOException;
 
-    Long countWordOccurrencesStreamWay(List<File> fileList, String targetWord);
 }

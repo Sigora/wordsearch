@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Sigora on 25.03.2016.
  */
 @Repository
-public class FileProviderImpl implements FileProvider{
+public class ClassPathFileProvider implements FileProvider{
 
     @Override
     public List<File> getFileList(String fileLocation) throws FileNotFoundException {

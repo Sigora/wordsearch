@@ -1,22 +1,17 @@
 package com.example;
 
-import com.example.rest.WordSearchController;
-import org.glassfish.jersey.filter.LoggingFilter;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 @SpringBootApplication
-public class Wordsearch3Application {
+public class WordSearch3Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Wordsearch3Application.class, args);
+		SpringApplication.run(WordSearch3Application.class, args);
 	}
 
 	@Bean

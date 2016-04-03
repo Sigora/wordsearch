@@ -2,6 +2,7 @@ package com.example.rest;
 import com.example.dao.FileProvider;
 import com.example.services.FileProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -14,13 +15,17 @@ import java.io.IOException;
 /**
  * Created by Sigora on 25.03.2016.
  */
-// The Java class will be hosted at the URI path "/wordsearch"
 @Path("/")
 @Component
 public class WordSearchController {
 
     @Autowired
-    private FileProcessor fileProcessor;
+    @Qualifier(FileProcessor.DEFAULT_FILE_PROCESSOR)
+    private FileProcessor defaultFileProcessor;
+
+    @Autowired
+    @Qualifier(FileProcessor.STREAM_FILE_PROCESSOR)
+    private FileProcessor streamFileProcessor;
 
     @Autowired
     private FileProvider fileProvider;
@@ -32,14 +37,22 @@ public class WordSearchController {
     @Produces("text/plain")
     @Path("/wordsearch/{word}")
     public String countWords(@PathParam("word") String word) throws IOException {
-        return fileProcessor.countWordOccurrences(fileProvider.getFileList(fileLocation), word).toString();
+        long startTime = System.currentTimeMillis();
+        long wordCount = defaultFileProcessor.countWordOccurrences(fileProvider.getFileList(fileLocation), word);
+        long endTime = System.currentTimeMillis() - startTime;
+        return "Word count = " + wordCount + " and request took " + endTime;
     }
 
     @GET
     @Produces("text/plain")
     @Path("/wordsearch/stream/{word}")
     public String countWordsStream(@PathParam("word") String word) throws IOException {
-        return fileProcessor.countWordOccurrencesStreamWay(fileProvider.getFileList(fileLocation), word).toString();
+        long startTime = System.currentTimeMillis();
+        long wordCount = streamFileProcessor.countWordOccurrences(fileProvider.getFileList(fileLocation), word);
+        long endTime = System.currentTimeMillis() - startTime;
+        return "Word count = " + wordCount + " and request took " + endTime;
     }
+
+
 
 }
